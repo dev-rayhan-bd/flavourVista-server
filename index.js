@@ -26,8 +26,24 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
+    const database = client.db("FlavourVistaDB");
+    const menuCollection = database.collection("menu");
+    const reviewsCollection = database.collection("reviews");
+    const recommendedCollection = database.collection("recommended");
 
 
+app.get('/menu',async(req,res)=>{
+    const result =await(menuCollection.find().toArray())
+    res.send(result);
+})
+app.get('/reviews',async(req,res)=>{
+    const result =await(reviewsCollection.find().toArray())
+    res.send(result);
+})
+app.get('/recommended',async(req,res)=>{
+    const result =await(recommendedCollection.find().toArray())
+    res.send(result);
+})
 
 
     await client.db("admin").command({ ping: 1 });
